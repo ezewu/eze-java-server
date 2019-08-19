@@ -1,0 +1,52 @@
+server:
+  port: 8000
+  servlet:
+    context-path: /
+  tomcat:
+    uri-encoding: UTF-8
+    max-threads: 1000
+    min-spare-threads: 30
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/eze?serverTimezone=UTC&useUnicode=true&allowPublicKeyRetrieval=true&useSSL=false&characterEncoding=UTF-8
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+  redis:
+    host: 127.0.0.1
+    password:
+    # 选种第一个库
+    database: 0
+    port: 6379
+    timeout: 3000
+  # 文件大小上传配置
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+# Mybatis-plus
+mybatis-plus:
+  global-config:
+    db-config:
+      # 驼峰下划线转换
+      table-underline: true
+      # 逻辑删除配置
+      # 逻辑删除全局值（1表示已删除，Mybatis Plus的默认配置）
+      logic-delete-value: 1
+      # 逻辑未删除全局值（0表示未删除，Mybatis Plus的默认配置）
+      logic-not-delete-value: 0
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#eze:
+#  token:
+#  # token过期时间（分钟）
+#  tokenExpireTime: 60
+#  # 用户选择保存登录状态对应token过期时间（天）
+#  saveLoginTime: 7
+#  # 限制用户登陆错误次数（次）
+#  loginTimeLimit: 10
+#  # 错误超过次数后多少分钟后才能继续登录（分钟）
+#  loginAfterTime: 10
+
+
