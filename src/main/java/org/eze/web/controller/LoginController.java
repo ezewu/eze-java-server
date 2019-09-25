@@ -19,7 +19,7 @@ public class LoginController {
      * 用户登录
      */
     @PostMapping
-    public Result login() {
+    public Result<String> login() {
         return Result.data("HPXqMPiGDAWxIf4jBB48c2vwUPn9rOBl");
     }
 }

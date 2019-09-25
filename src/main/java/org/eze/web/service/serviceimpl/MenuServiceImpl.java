@@ -2,6 +2,7 @@ package org.eze.web.service.serviceimpl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.eze.common.enums.ResultCode;
 import org.eze.common.exception.GlobalException;
 import org.eze.web.mapper.MenuMapper;
@@ -25,10 +26,11 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
 
     @Override
     public boolean submit(Menu menu) {
-        int cnt = count(Wrappers.<Menu>query().lambda().eq(Menu::getName, menu.getName()));
-        if (cnt > 0) {
-            throw new GlobalException(ResultCode.MENU_ALREADY_EXISTS);
-        }
+//        int cnt = count(Wrappers.<Menu>query().lambda().eq(Menu::getName, menu.getName()));
+//        if (cnt > 0) {
+//            throw new GlobalException(ResultCode.MENU_ALREADY_EXISTS);
+//        }
+        menu.setName(RandomStringUtils.randomAlphabetic(10));
         return save(menu);
     }
 

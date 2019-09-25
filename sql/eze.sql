@@ -11,7 +11,7 @@
  Target Server Version : 50722
  File Encoding         : 65001
 
- Date: 14/08/2019 23:05:35
+ Date: 22/09/2019 11:13:00
 */
 
 SET NAMES utf8mb4;
@@ -22,10 +22,10 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_department`;
 CREATE TABLE `sys_department` (
-  `id` varchar(32) NOT NULL COMMENT '部门表',
+  `id` varchar(20) NOT NULL COMMENT '部门表',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` datetime DEFAULT NULL COMMENT '更新时间',
-  `parent_id` varchar(32) DEFAULT NULL COMMENT '父ID 上级部门',
+  `parent_id` varchar(20) DEFAULT NULL COMMENT '父ID 上级部门',
   `sort_order` smallint(4) unsigned DEFAULT '50',
   `status` tinyint(1) unsigned zerofill DEFAULT '0' COMMENT '正常0 冻结1',
   `deptName` varchar(32) DEFAULT NULL COMMENT '公司名称(部门名称)',
@@ -39,15 +39,15 @@ CREATE TABLE `sys_department` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_menu`;
 CREATE TABLE `sys_menu` (
-  `id` varchar(32) NOT NULL COMMENT '菜单表',
-  `record_id` varchar(32) DEFAULT NULL COMMENT '记录 ID',
+  `id` varchar(20) NOT NULL COMMENT '菜单表',
+  `record_id` varchar(20) DEFAULT NULL COMMENT '记录 ID',
   `name` varchar(32) DEFAULT NULL COMMENT '菜单权限名称',
   `component` varchar(32) DEFAULT NULL COMMENT '前端组件地址',
   `path` varchar(32) DEFAULT NULL COMMENT '页面路径 前端组件URL',
   `title` varchar(32) DEFAULT NULL COMMENT '菜单标题',
   `icon` varchar(32) DEFAULT NULL COMMENT '菜单图标',
   `sort_order` smallint(4) unsigned DEFAULT '50' COMMENT '排序值',
-  `parent_id` varchar(32) DEFAULT NULL COMMENT '父ID 上级菜单ID',
+  `parent_id` varchar(20) DEFAULT NULL COMMENT '父ID 上级菜单ID',
   `level` smallint(3) unsigned DEFAULT '0' COMMENT '层级',
   `status` tinyint(1) unsigned zerofill DEFAULT '0' COMMENT '正常0 冻结1',
   `url` varchar(32) DEFAULT NULL COMMENT '菜单为网页连接 是URL',
@@ -81,8 +81,8 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_menu_action`;
 CREATE TABLE `sys_menu_action` (
-  `id` varchar(32) NOT NULL COMMENT '动作表',
-  `menu_id` varchar(32) DEFAULT NULL COMMENT '菜单ID',
+  `id` varchar(20) NOT NULL COMMENT '动作表',
+  `menu_id` varchar(20) DEFAULT NULL COMMENT '菜单ID',
   `code` smallint(4) unsigned NOT NULL COMMENT '动作编号',
   `menu_action_name` varchar(32) DEFAULT NULL COMMENT '动作名称',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
@@ -95,8 +95,8 @@ CREATE TABLE `sys_menu_action` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_menu_resource`;
 CREATE TABLE `sys_menu_resource` (
-  `id` varchar(32) NOT NULL COMMENT '请求资源表',
-  `menu_id` varchar(32) DEFAULT NULL COMMENT '菜单ID',
+  `id` varchar(20) NOT NULL COMMENT '请求资源表',
+  `menu_id` varchar(20) DEFAULT NULL COMMENT '菜单ID',
   `code` smallint(4) unsigned NOT NULL COMMENT '资源编号',
   `menu_resource_name` varchar(20) DEFAULT NULL COMMENT '资源名称',
   `method` varchar(8) DEFAULT NULL COMMENT '资源请求方式',
@@ -111,8 +111,8 @@ CREATE TABLE `sys_menu_resource` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE `sys_role` (
-  `id` varchar(32) NOT NULL COMMENT '角色表',
-  `record_id` varchar(32) DEFAULT NULL COMMENT '记录 ID',
+  `id` varchar(20) NOT NULL COMMENT '角色表',
+  `record_id` varchar(20) DEFAULT NULL COMMENT '记录 ID',
   `role_name` varchar(32) DEFAULT NULL COMMENT '角色名称',
   `sort_order` smallint(4) unsigned DEFAULT '50',
   `memo` varchar(32) DEFAULT NULL COMMENT '备注',
@@ -126,9 +126,9 @@ CREATE TABLE `sys_role` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role_menu`;
 CREATE TABLE `sys_role_menu` (
-  `id` varchar(32) NOT NULL COMMENT '角色与菜单关联表',
-  `menu_id` varchar(32) DEFAULT NULL COMMENT '菜单表ID',
-  `role_id` varchar(32) DEFAULT NULL COMMENT '角色表ID',
+  `id` varchar(20) NOT NULL COMMENT '角色与菜单关联表',
+  `menu_id` varchar(20) DEFAULT NULL COMMENT '菜单表ID',
+  `role_id` varchar(20) DEFAULT NULL COMMENT '角色表ID',
   `action` varchar(128) DEFAULT NULL COMMENT '动作编号（多个以英文逗号分隔）',
   `resource` varchar(128) DEFAULT NULL COMMENT '资源编号（多个以英文逗号分隔）',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
@@ -141,8 +141,8 @@ CREATE TABLE `sys_role_menu` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user` (
-  `id` varchar(32) NOT NULL COMMENT '用户表',
-  `record_id` varchar(32) DEFAULT NULL COMMENT '记录 ID',
+  `id` varchar(20) NOT NULL COMMENT '用户表',
+  `record_id` varchar(20) DEFAULT NULL COMMENT '记录 ID',
   `username` varchar(20) DEFAULT NULL COMMENT '用户名',
   `password` varchar(32) DEFAULT NULL COMMENT '密码',
   `real_name` varchar(20) DEFAULT NULL COMMENT '真实姓名',
@@ -150,7 +150,7 @@ CREATE TABLE `sys_user` (
   `phone` varchar(11) DEFAULT NULL COMMENT '手机号',
   `status` tinyint(1) unsigned zerofill DEFAULT '0' COMMENT '正常0 冻结1',
   `avatar` varchar(128) DEFAULT NULL COMMENT '头像',
-  `department_id` varchar(32) DEFAULT NULL COMMENT '所属于公司 所属公司ID',
+  `department_id` varchar(20) DEFAULT NULL COMMENT '所属于公司 所属公司ID',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
@@ -161,11 +161,11 @@ CREATE TABLE `sys_user` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user_role`;
 CREATE TABLE `sys_user_role` (
-  `id` varchar(32) NOT NULL COMMENT '用户角色关联表',
+  `id` varchar(20) NOT NULL COMMENT '用户角色关联表',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` datetime DEFAULT NULL COMMENT '更新时间',
-  `role_id` varchar(32) DEFAULT NULL COMMENT '角色ID',
-  `user_id` varchar(32) DEFAULT NULL COMMENT '用户ID',
+  `role_id` varchar(20) DEFAULT NULL COMMENT '角色ID',
+  `user_id` varchar(20) DEFAULT NULL COMMENT '用户ID',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 

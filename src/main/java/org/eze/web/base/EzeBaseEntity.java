@@ -1,10 +1,10 @@
 package org.eze.web.base;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.eze.common.utils.SnowFlakeUtil;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -17,9 +17,8 @@ import java.time.LocalDateTime;
  */
 @Data
 public class EzeBaseEntity implements Serializable {
-    // Twitter雪花ID SnowFlakeUtil
-    @TableId
-    private String id = String.valueOf(SnowFlakeUtil.getFlowIdInstance().nextId());
+
+    private String id;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

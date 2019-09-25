@@ -38,7 +38,7 @@ public class MenuActionController {
      * 新增
      */
     @PostMapping
-    public Result submit(@Valid @RequestBody MenuAction menuAction) {
+    public Result<Boolean> submit(@Valid @RequestBody MenuAction menuAction) {
         return Result.status(menuActionService.submit(menuAction));
     }
 
@@ -46,7 +46,7 @@ public class MenuActionController {
      * 删除
      */
     @DeleteMapping("/{ids}")
-    public Result remove(@Valid @NotBlank(message = "删除ID不能为空") @PathVariable String ids) {
+    public Result<Boolean> remove(@Valid @NotBlank(message = "删除ID不能为空") @PathVariable String ids) {
         return Result.status(menuActionService.removeByIds(Arrays.asList(StringUtils.split(ids, ","))));
     }
 
@@ -54,7 +54,7 @@ public class MenuActionController {
      * 修改
      */
     @PutMapping
-    public Result update(@Valid @RequestBody MenuAction menuAction) {
+    public Result<Boolean> update(@Valid @RequestBody MenuAction menuAction) {
         return Result.status(menuActionService.updateById(menuAction));
     }
 

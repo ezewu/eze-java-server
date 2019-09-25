@@ -37,7 +37,7 @@ public class RoleController {
      * 新增
      */
     @PostMapping
-    public Result submit(@Valid @RequestBody Role role) {
+    public Result<Boolean> submit(@Valid @RequestBody Role role) {
         return Result.status(roleService.save(role));
     }
 
@@ -45,7 +45,7 @@ public class RoleController {
      * 删除
      */
     @DeleteMapping("/{ids}")
-    public Result remove(@Valid @NotBlank(message = "删除ID不能为空") @PathVariable String ids) {
+    public Result<Boolean> remove(@Valid @NotBlank(message = "删除ID不能为空") @PathVariable String ids) {
         return Result.status(roleService.removeByIds(Arrays.asList(StringUtils.split(ids, ","))));
     }
 
@@ -53,7 +53,7 @@ public class RoleController {
      * 修改
      */
     @PutMapping
-    public Result update(@Valid @RequestBody Role user) {
+    public Result<Boolean> update(@Valid @RequestBody Role user) {
         return Result.status(roleService.updateById(user));
     }
 

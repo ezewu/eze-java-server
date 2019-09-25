@@ -34,7 +34,7 @@ public class DepartmentController {
      * 新增
      */
     @PostMapping
-    public Result submit(@Valid @RequestBody Department department) {
+    public Result<Boolean> submit(@Valid @RequestBody Department department) {
         return Result.status(departmentService.save(department));
     }
 
@@ -42,7 +42,7 @@ public class DepartmentController {
      * 删除
      */
     @DeleteMapping("/{ids}")
-    public Result remove(@Valid @NotBlank(message = "删除ID不能为空") @PathVariable String ids) {
+    public Result<Boolean> remove(@Valid @NotBlank(message = "删除ID不能为空") @PathVariable String ids) {
         return Result.status(departmentService.removeByIds(Arrays.asList(StringUtils.split(ids, ","))));
     }
 
@@ -50,7 +50,7 @@ public class DepartmentController {
      * 修改
      */
     @PutMapping
-    public Result update(@Valid @RequestBody Department department) {
+    public Result<Boolean> update(@Valid @RequestBody Department department) {
         return Result.status(departmentService.updateById(department));
     }
 

@@ -13,7 +13,7 @@ import java.io.Serializable;
  */
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL) //排除NULL
-public class Result<T> implements Serializable {
+public  class Result<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

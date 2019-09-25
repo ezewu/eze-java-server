@@ -36,7 +36,7 @@ public class MenuResourceController {
      * 新增
      */
     @PostMapping
-    public Result submit(@Valid @RequestBody MenuResource menuResource) {
+    public Result<Boolean> submit(@Valid @RequestBody MenuResource menuResource) {
         return Result.status(menuResourceService.submit(menuResource));
     }
 
@@ -44,7 +44,7 @@ public class MenuResourceController {
      * 删除
      */
     @DeleteMapping("/{ids}")
-    public Result remove(@Valid @NotBlank(message = "删除ID不能为空") @PathVariable String ids) {
+    public Result<Boolean> remove(@Valid @NotBlank(message = "删除ID不能为空") @PathVariable String ids) {
         return Result.status(menuResourceService.removeByIds(Arrays.asList(StringUtils.split(ids, ","))));
     }
 
@@ -52,7 +52,7 @@ public class MenuResourceController {
      * 修改
      */
     @PutMapping
-    public Result update(@Valid @RequestBody MenuResource menuResource) {
+    public Result<Boolean> update(@Valid @RequestBody MenuResource menuResource) {
         return Result.status(menuResourceService.updateById(menuResource));
     }
 

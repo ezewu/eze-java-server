@@ -37,7 +37,7 @@ public class UserController {
      * 新增
      */
     @PostMapping
-    public Result submit(@Valid @RequestBody User user) {
+    public Result<Boolean> submit(@Valid @RequestBody User user) {
         return Result.status(userService.submit(user));
     }
 
@@ -45,7 +45,7 @@ public class UserController {
      * 删除
      */
     @DeleteMapping("/{ids}")
-    public Result remove(@Valid @NotBlank(message = "删除ID不能为空") @PathVariable String ids) {
+    public Result<Boolean> remove(@Valid @NotBlank(message = "删除ID不能为空") @PathVariable String ids) {
         return Result.status(userService.removeByIds(Arrays.asList(StringUtils.split(ids, ","))));
     }
 
@@ -53,7 +53,7 @@ public class UserController {
      * 修改
      */
     @PutMapping
-    public Result update(@Valid @RequestBody User user) {
+    public Result<Boolean> update(@Valid @RequestBody User user) {
         return Result.status(userService.updateById(user));
     }
 
@@ -61,9 +61,11 @@ public class UserController {
      * 分页用户列表
      */
     @GetMapping
-    public Result<IPage<User>> list(@RequestParam(required = false) String username, @RequestParam(required = false) String realName, @RequestParam(required = false) String phone, Page<User> page) {
+    public Result<IPage<User>> list(@RequestParam(required = false) String username, @RequestParam(required = false) String realName,
+                                    @RequestParam(required = false) String phone, Page<User> page) {
         IPage<User> pages = userService.page(page,
-                Wrappers.<User>lambdaQuery().like(!StringUtils.isEmpty(username), User::getUsername, username).like(!StringUtils.isEmpty(realName), User::getRealName, realName).like(!StringUtils.isEmpty(phone), User::getPhone, phone));
+                Wrappers.<User>lambdaQuery().like(!StringUtils.isEmpty(username), User::getUsername, username).like(!StringUtils.isEmpty(realName),
+                        User::getRealName, realName).like(!StringUtils.isEmpty(phone), User::getPhone, phone));
 
         if (pages.getRecords().size() == 0) {
             throw new GlobalException(ResultCode.NO_SUCH_USER);

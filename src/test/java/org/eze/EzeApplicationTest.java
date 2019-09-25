@@ -11,5 +11,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 @Slf4j
 public class EzeApplicationTest {
 
+    public static void main(String[] args) {
+
+    }
 }
 
