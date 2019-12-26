@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /*
  * Created by Ksdl
@@ -49,9 +52,8 @@ public class MenuController {
     /**
      * 修改
      */
-
     @PutMapping
-    public Result<Boolean> update(@Valid @RequestBody Menu menu) {
+    public Result<Boolean> updateMenu(@Valid @RequestBody Menu menu) {
         return Result.status(menuService.updateById(menu));
     }
 
@@ -59,8 +61,16 @@ public class MenuController {
      * 菜单列表 可搜索单条
      */
     @GetMapping
-    public Result<List<Menu>> list(@RequestParam(required = false) String title) {
-        return Result.data(menuService.menuTree(title));
+    public Result<List<Menu>> list() {
+        return Result.data(menuService.menuTree());
+    }
+
+    /**
+     * 精确查找
+     */
+    @GetMapping("/find")
+    public Result<List<Menu>> findMenu(@RequestParam(required = false) String title, @RequestParam(required = false) String status) {
+        return Result.data(menuService.findMenu(title, status));
     }
 
 }

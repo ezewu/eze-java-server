@@ -31,8 +31,6 @@ public enum ResultCode {
     // 菜单ID有误
     NO_SUCH_MENU(HttpServletResponse.SC_BAD_REQUEST, "菜单ID有误"),
     // 没有此角色
-    NO_SUCH_REMUS(HttpServletResponse.SC_BAD_REQUEST, "没有可用的菜单"),
-    // 没有此角色
     NO_SUCH_ROLE(HttpServletResponse.SC_BAD_REQUEST, "没有查到角色"),
 
     // 当前菜单下重复CODE
@@ -51,7 +49,7 @@ public enum ResultCode {
     NO_SUCH_MENU_ACTION(HttpServletResponse.SC_BAD_REQUEST, "没有可用的动作"),
 
     // 前台JSON有误
-    MSG_NOT_READABLE(HttpServletResponse.SC_BAD_REQUEST, "参数不能析"),
+    MSG_NOT_READABLE(HttpServletResponse.SC_BAD_REQUEST, "参数不能解析"),
     // 缺少必要的请求参数
     PARAM_MISS(HttpServletResponse.SC_BAD_REQUEST, "缺少必要的请求参数"),
     // 参数校验失败

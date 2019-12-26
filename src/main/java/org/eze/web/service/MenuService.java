@@ -14,5 +14,7 @@ public interface MenuService extends IService<Menu> {
 
     boolean submit(Menu menu);
 
-    List<Menu> menuTree(String title);
+    List<Menu> menuTree();
+
+    List<Menu> findMenu(String title, String status);
 }

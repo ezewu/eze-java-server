@@ -21,11 +21,13 @@ public class Menu extends EzeBaseEntity {
     private static final long serialVersionUID = 1L;
     // 记录 ID
     private String recordId;
-    // 菜单权限名称
+    // 菜单name唯一
     private String name;
     // 前端组件地址
+    @NotBlank(message = "物理路径不能为空")
     private String component;
-    // 页面路径 前端组件URL
+    // 组件URL
+    @NotBlank(message = "URL不能为空")
     private String path;
     // 菜单标题
     @NotBlank(message = "菜单标题不能为空")
