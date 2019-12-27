@@ -29,16 +29,16 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(GlobalException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Result handleError(GlobalException e) {
+    public Result<String> handleError(GlobalException e) {
         log.error("GlobalException自定义错误触发 {}", e.getMessage());
         return Result.fail(e.getCode(), e.getMessage());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Result MethodArgumentNotValidExceptionHandle(MethodArgumentNotValidException e) {
+    public Result<String> MethodArgumentNotValidExceptionHandle(MethodArgumentNotValidException e) {
         log.warn("参数验证失败 {}", e.getMessage());
-        if (e.getBindingResult() != null && !CollectionUtils.isEmpty(e.getBindingResult().getAllErrors())) {
+        if (!CollectionUtils.isEmpty(e.getBindingResult().getAllErrors())) {
             List<String> errorInfoList = e.getBindingResult().getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).collect(Collectors.toList());
             return Result.fail(StringUtils.join(errorInfoList, " | "));
         }
@@ -46,8 +46,8 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Result ConstraintViolationExceptionHandle(ConstraintViolationException e) {
+    @ResponseStatus(HttpStatus.PARTIAL_CONTENT)
+    public Result<String> ConstraintViolationExceptionHandle(ConstraintViolationException e) {
         log.warn("参数验证失败 {}", e.getMessage());
         List<String> errorInfoList = e.getConstraintViolations().stream().map(ConstraintViolation::getMessageTemplate).collect(Collectors.toList());
 
@@ -55,14 +55,14 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Result HttpMessageNotReadableExceptionHandle(HttpMessageNotReadableException e) {
-        log.error("能数不能析 {}", e.getMessage());
+    @ResponseStatus(HttpStatus.PARTIAL_CONTENT)
+    public Result<String> HttpMessageNotReadableExceptionHandle(HttpMessageNotReadableException e) {
+        log.error("参数不能析 {}", e.getMessage());
         return Result.fail(ResultCode.MSG_NOT_READABLE);
     }
 
     @ExceptionHandler(MissingServletRequestParameterException.class)
-    public Result MissingServletRequestParameterExceptionHandle(MissingServletRequestParameterException e) {
+    public Result<String> MissingServletRequestParameterExceptionHandle(MissingServletRequestParameterException e) {
         log.error("缺少必要的请求参数 {}", e.getMessage());
         String message = String.format("缺少必要的请求参数: %s", e.getParameterName());
         return Result.fail(ResultCode.PARAM_MISS, message);

@@ -1,5 +1,8 @@
 package org.eze.web.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.eze.web.service.MenuService;
 import org.eze.web.entity.Menu;
 import org.eze.web.vo.Result;
@@ -10,11 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /*
  * Created by Ksdl
@@ -45,7 +45,7 @@ public class MenuController {
      * 删除
      */
     @DeleteMapping("/{ids}")
-    public Result<Boolean> remove(@Valid @NotBlank(message = "删除ID不能为空") @PathVariable String ids) {
+    public Result<Boolean> remove(@PathVariable String ids) {
         return Result.status(menuService.removeByIds(Arrays.asList(StringUtils.split(ids, ","))));
     }
 
@@ -71,6 +71,22 @@ public class MenuController {
     @GetMapping("/find")
     public Result<List<Menu>> findMenu(@RequestParam(required = false) String title, @RequestParam(required = false) String status) {
         return Result.data(menuService.findMenu(title, status));
+    }
+
+    /**
+     * 只查询菜单列表
+     */
+    @GetMapping("/type/{type}")
+    public Result<IPage<Menu>> listMenuType(@PathVariable String type, Page<Menu> page) {
+        return Result.data(menuService.page(page, Wrappers.<Menu>lambdaQuery().eq(Menu::getType, type)));
+    }
+
+    /**
+     * 只查询菜单列表
+     */
+    @GetMapping("/find/type/{type}")
+    public Result<IPage<Menu>> findMenuType(@PathVariable String type, @RequestParam @NotBlank(message = "菜单名称不能为空") String title, Page<Menu> page) {
+        return Result.data(menuService.page(page, Wrappers.<Menu>lambdaQuery().eq(Menu::getType, type).like(Menu::getTitle, title)));
     }
 
 }
